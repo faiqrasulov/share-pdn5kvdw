@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>MRI images</title>
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">MRI images <span class="muted" id="enc-badge"></span></div>
+  <div class="top-actions">
+    <button id="lock-btn" class="ghost hidden" type="button" title="Forget the password on this device">Lock / forget password</button>
+  </div>
+</header>
+
+<main>
+  <section id="loading" class="card">
+    <p>Loading&hellip;</p>
+  </section>
+
+  <section id="error" class="card hidden">
+    <h2>Cannot open the images</h2>
+    <p id="error-text"></p>
+    <p><button type="button" id="retry-btn">Try again</button></p>
+  </section>
+
+  <section id="unlock" class="card narrow hidden">
+    <h1>Protected medical images</h1>
+    <p class="muted">These files are encrypted. Enter the password you received separately.</p>
+    <form id="unlock-form" autocomplete="off">
+      <label for="pw">Password</label>
+      <input id="pw" name="pw" type="password" autocomplete="current-password" required autofocus>
+      <label class="check"><input id="remember" type="checkbox"> Keep unlocked on this device for 30 days (otherwise 12 hours)</label>
+      <button id="unlock-btn" type="submit">Unlock</button>
+      <p id="unlock-msg" class="msg" role="alert" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <section id="content" class="hidden">
+    <div class="card">
+      <h1 id="patient-name"></h1>
+      <div class="kv" id="patient-meta"></div>
+    </div>
+
+    <div class="card actions">
+      <a class="action primary" id="open-viewer" href="#">
+        <strong>Open images (viewer)</strong>
+        <span>Full-resolution original DICOM in the OHIF viewer: window/level, scroll, zoom/pan, measurements, side-by-side layouts, reference lines, DICOM tags.</span>
+      </a>
+      <a class="action" id="download-zip" href="#">
+        <strong>Download original discs (ZIP)</strong>
+        <span id="zip-desc">Exact copy of both CDs: images with DICOMDIR plus the disc's own Windows viewer (eFilm Lite).</span>
+        <progress id="zip-progress" class="hidden" max="1" value="0"></progress>
+        <em id="zip-status"></em>
+      </a>
+      <a class="action hidden" id="open-3d" href="#">
+        <strong>3D model</strong>
+        <span>Surface/volume reconstruction made from these MRI series (illustrative only).</span>
+      </a>
+      <a class="action hidden" id="open-notes" href="#">
+        <strong>Patient's illustrated notes (AI-assisted, not a radiology report)</strong>
+        <span>The patient's own annotated screenshots and questions. Please rely on the original images.</span>
+      </a>
+    </div>
+
+    <div class="card">
+      <h2>Studies</h2>
+      <div id="studies"></div>
+    </div>
+
+    <div class="card help">
+      <h2>Viewer quick help</h2>
+      <ul>
+        <li><b>Scroll</b> slices: mouse wheel or arrow keys up/down. <b>Window/level</b>: left-drag (default tool) or presets in the toolbar.</li>
+        <li><b>Zoom</b>: right-drag; <b>pan</b>: middle-drag. Reset: toolbar &ldquo;Reset view&rdquo; or press <kbd>Space</kbd>.</li>
+        <li><b>Change series</b>: click a series thumbnail in the left panel to show it in the selected (outlined) viewport.</li>
+        <li><b>Compare series</b>: Layout button (grid icon), click a viewport to select it, then click a thumbnail (or drag thumbnails into viewports). Reference lines / crosshairs and the DICOM tag browser are in the toolbar &ldquo;More tools&rdquo; menu.</li>
+        <li>Every image is the original 16-bit DICOM pixel data; nothing was resampled or compressed.</li>
+        <li>The bracketed labels in the viewer's study list (e.g. <i>[Left knee]</i>) were added for orientation; the DICOM files themselves are unmodified.</li>
+      </ul>
+      <p class="muted small">Viewer: OHIF Viewer <span id="ohif-version"></span> (open source). Not a regulatory-cleared diagnostic workstation; for primary reading please use the DICOM download.</p>
+    </div>
+  </section>
+</main>
+<script src="landing.js"></script>
+</body>
+</html>

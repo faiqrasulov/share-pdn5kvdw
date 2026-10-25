@@ -1,0 +1,14 @@
+{
+ "format": "mri-share-v1",
+ "encrypted": true,
+ "build": "20261025141715-87597204",
+ "kdf": {
+  "name": "PBKDF2",
+  "hash": "SHA-256",
+  "iterations": 600000,
+  "salt": "Em7DSi+/CiO/NrUaioGxpw=="
+ },
+ "cipher": "AES-256-GCM, 12-byte synthetic IV (HMAC of AAD and plaintext hash) prepended, 128-bit tag, AAD = blob name",
+ "verifier": "QFdhox7VDxtNua7QwU88Z8Xt0QptHU5XZzgeanteVcWFMJlEsa0EjmABsAHCzsmqNQ==",
+ "vault": "vault.bin"
+}

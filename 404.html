@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Redirecting…</title>
+<style>body{background:#0b1220;color:#e7edf7;font:15px -apple-system,Segoe UI,Roboto,sans-serif;padding:40px}</style>
+</head>
+<body>
+<p id="m">Opening the image site&hellip;</p>
+<script>
+/* Static hosts serve this page for unknown paths. Protected pages (viewer, notes, 3D)
+   only exist through the decrypting service worker, so when the worker is not in
+   control (first visit, hard reload) send the visitor to the landing page, which
+   unlocks and then returns to the requested page. */
+(async function () {
+  var path = location.pathname;
+  var re = /\/(ohif|notes|3d|vault)\//g, m, candidates = [];
+  while ((m = re.exec(path)) !== null) candidates.push(path.slice(0, m.index + 1));
+  candidates.push('/');
+  for (var i = 0; i < candidates.length; i++) {
+    try {
+      var r = await fetch(candidates[i] + 'site.json', { cache: 'no-cache' });
+      if (r.ok) {
+        var rel = path.slice(candidates[i].length) + location.search;
+        location.replace(candidates[i] + '?next=' + encodeURIComponent(rel));
+        return;
+      }
+    } catch (e) { /* try next */ }
+  }
+  document.getElementById('m').textContent = 'Page not found.';
+})();
+</script>
+</body>
+</html>
